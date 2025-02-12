@@ -3,7 +3,20 @@ import "./App.css";
 
 function App() {
   const[images, setImages]=useState([]);
-  const[imageURL, setimageURL]=useState("");
+  const[imageURL, setImageURL]=useState("");
+
+  const handleAddImage=()=>{
+    if (imageURL.trim() !== "") {
+      setImages([...images, imageURL]);
+      setImageURL("");
+    }
+  }
+  
+  const handleRemoveImage = (index) => {
+    const newImages = images.filter((_, i) => i !== index);
+    setImages(newImages);
+  }
+  
   return (
 
     <div className="App">
@@ -13,7 +26,7 @@ function App() {
       <div className="form">
         <input type="text"
         value={imageURL}
-        onChange={(e) => setimageURL(e.target.value)}
+        onChange={(e) => setImageURL(e.target.value)}
         />
 
         <button onClick={()=>handleAddImage()}>Add Image</button>
@@ -33,19 +46,6 @@ function App() {
     
 
   );
-}
-
-function handleAddImage(){
-  if (imageURL.trim() !== "") {
-    const newImages = [...images, imageURL];
-    setImages(newImages);
-    setImages("");
-  }
-}
-
-const handleRemoveImage = (index) => {
-  const newImages = images.filter((_, i) => i !== index);
-  setImages(newImages);
 }
 
 export default App;
